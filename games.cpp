@@ -209,6 +209,9 @@ int main()
 				if (player > bot) {
 					cout << "\nВы выиграли!!!\n";
 				}
+				else if (player == bot) {
+					cout << "\nНичья!!!\n";
+				}
 				else {
 					cout << "\nБот выиграл!!!\n";
 				}
