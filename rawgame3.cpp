@@ -9,43 +9,71 @@ int main()
 {
 	setlocale(0, "");
 	srand(time(NULL));
+
 	int magic_num = 0;
+	//bool win = false;
+	int chose = 0;
+	int heart = 0;
+	int num = 0;
+	int level = 0;
 	bool win = false;
-	magic_num = 1 + rand() % 10;
-	int i = 0;
-	int num;
-	int lives = 5;
-	int ugadal = 0;
-	cout << "Угадай число!!!\n";
+	cout << "Выберите уровень сложности:\n1 - Easy\n2 - Hard\n";
+	cin >> chose;
+	switch (chose) {
+	case 1:
+		magic_num = 1 + rand() % 10;
+		heart = 5;
+		level = 1;
+		break;
+	case 2:
+		magic_num = 10 + rand() % 90;
+		heart = 25;
+		level = 2;
+		break;
+	default:
+		break;
+	}
+	chose = 0;
+	system("cls");
 	do {
-		cout << "Введите число:\n";
+		cout << "\nВведите число:\n";
 		cin >> num;
 		if (num != magic_num) {
+			cout << "\nХотите воспользоваться подсказкой ?\n1 - Да.\n2 - Нет.\n";
+		}
+		if (num == magic_num) {
+			cout << "\nВы выиграли!!!\n";
+			if (level == 1) {
+				heart = heart * 5;
+			}
+			if (level == 2) {
+				heart = heart * 10;
+			}
+			cout << "\nКоличество очков: " << heart;
+			win == true;
+			break;
+		}
+		cin >> chose;
+		switch (chose) {
+		case 1:
 			if (num > magic_num) {
 				cout << "Ваше число больше\n";
-				lives--;
+				heart--;
 			}
 			else {
 				cout << "Ваше число меньше\n";
-				lives--;
+				heart--;
 			}
-			if (num == 0) {
-				break;
-			}
+			break;
+		default:
+			system("cls");
+			break;
 		}
-		if (lives == 0) {
-			num = magic_num;
-			ugadal == 2;
+		if (heart == 0) {
+			cout << "\nВы проиграли\n";
+			win = true;
+			break;
 		}
-		i++;
-	} while (num != magic_num);
-	if (ugadal == 1) {
-		cout << "\nЧисло: " << magic_num << "\nВы угадали\n";
-		cout << "\n" << i << " попыток\n";
-	}
-	if (ugadal == 2) {
-		cout << "\nЧисло: " << magic_num << "\nВы не угадали\n";
-		cout << "У вас закончились жизни!!!";
-	}
-	// лучше сделать с нуля....
+	} while (win != true);
+
 }
